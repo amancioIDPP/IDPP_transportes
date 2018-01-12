@@ -5,8 +5,10 @@
  */
 package session_beans;
 
+import com.sun.javafx.scene.control.SelectedCellsMap;
 import entities.Departamento;
 import entities.Municipio;
+import entities.Sede;
 import entities.Vehiculo;
 import java.util.Date;
 import java.util.List;
@@ -35,21 +37,51 @@ public class VehiculoFacade extends AbstractFacade<Vehiculo> {
     public VehiculoFacade() {
         super(Vehiculo.class);
     }
+    public List<Vehiculo> findByTypeVehicle(Date fechaInicio, Date fechaFin) {
+        EntityManager em = getEntityManager();
+        Query vehiculoQ;        
+        vehiculoQ = em.createNamedQuery("Vehiculo.findByTypeVehicle").setParameter("fecha_inicio", fechaInicio).setParameter("fecha_fin", fechaFin);
+        return vehiculoQ.getResultList();
+    }
+        
+    public List<Vehiculo> findByLoad(Date fechaInicio, Date fechaFin) {
+        EntityManager em = getEntityManager();
+        Query vehiculoQ;
+        Query tipoVehiculoQ;
+        tipoVehiculoQ = em.createNamedQuery("TipoTipo.findByLoad");
+        vehiculoQ = em.createNamedQuery("Vehiculo.findByLoad").setParameter("fecha_inicio", fechaInicio).setParameter("fecha_fin", fechaFin).setParameter("tipoVehiculo",tipoVehiculoQ.getResultList());
+        return vehiculoQ.getResultList();
+    }
     
+    public List<Vehiculo> findByLoadAndId(Date fechaInicio, Date fechaFin, Integer id) {
+        EntityManager em = getEntityManager();
+        Query vehiculoQ;
+        Query tipoVehiculoQ;
+        tipoVehiculoQ = em.createNamedQuery("TipoTipo.findByLoad");
+        //vehiculoQ = em.createNamedQuery("Vehiculo.findByLoadAndId").setParameter("fecha_inicio", fechaInicio).setParameter("fecha_fin", fechaFin).setParameter("tipoVehiculo",tipoVehiculoQ.getResultList());
+        vehiculoQ = em.createNamedQuery("Vehiculo.findByLoadAndId").setParameter("fecha_inicio", fechaInicio).setParameter("fecha_fin", fechaFin).setParameter("codAsignacionVehiculo",id).setParameter("tipoVehiculo",tipoVehiculoQ.getResultList());
+        //codAsignacionVehiculo
+        return vehiculoQ.getResultList();
+    }
     public List<Vehiculo> findByDate(Date fechaInicio, Date fechaFin) {
         EntityManager em = getEntityManager();
         Query vehiculoQ;        
         vehiculoQ = em.createNamedQuery("Vehiculo.findByDate").setParameter("fecha_inicio", fechaInicio).setParameter("fecha_fin", fechaFin);
         return vehiculoQ.getResultList();
     }
-    
+    public List<Vehiculo> findOrderByLicense() {
+        EntityManager em = getEntityManager();
+        Query vehiculoQ;        
+        vehiculoQ = em.createNamedQuery("Vehiculo.findOrderByLicense");
+        return vehiculoQ.getResultList();
+    }
     public List<Vehiculo> findByDateAndId(Date fechaInicio, Date fechaFin, Integer id) {
         EntityManager em = getEntityManager();
         Query vehiculoQ;        
         vehiculoQ = em.createNamedQuery("Vehiculo.findByDateAndId").setParameter("fecha_inicio", fechaInicio).setParameter("fecha_fin", fechaFin).setParameter("codAsignacionVehiculo", id);
         //codAsignacionVehiculo
         return vehiculoQ.getResultList();
-    }
+    }        
     
     public List<Municipio> getMunicipioOrderedListLimitsDepartment(Departamento depto){
         EntityManager municipioEM;
