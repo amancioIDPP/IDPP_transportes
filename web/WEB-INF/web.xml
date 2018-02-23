@@ -87,7 +87,7 @@
             <role-name>combustibleComision</role-name>
         </auth-constraint>
     </security-constraint>
-        <security-constraint>
+        <!-- security-constraint>
         <display-name>mantenimientoReparacion</display-name>
         <web-resource-collection>
             <web-resource-name>mantenimientoReparacion</web-resource-name>
@@ -99,7 +99,7 @@
             <role-name>Admin</role-name>
             <role-name>mantenimientoReparacion</role-name>
         </auth-constraint>
-    </security-constraint>
+    </security-constraint -->
     
     <error-page>
         <error-code>403</error-code>
@@ -132,6 +132,10 @@
     <security-role>
         <description/>
         <role-name>combustibleComision</role-name>
+    </security-role>
+	<security-role>
+        <description/>
+        <role-name>mantenimientoReparacion</role-name>
     </security-role>
     <resource-ref>
         <res-ref-name>jdbc/jdbcRealm</res-ref-name>
